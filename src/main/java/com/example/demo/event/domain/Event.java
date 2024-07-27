@@ -1,13 +1,15 @@
 package com.example.demo.event.domain;
 
-import com.example.demo.day.domain.Day;
+import com.example.demo.dia.domain.Dia;
 import com.example.demo.photo.domain.Photo;
 import jakarta.persistence.*;
 import lombok.Data;
 
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.TimeZone;
 
 @Data
 @Entity
@@ -20,21 +22,21 @@ public class Event {
     String name;
 
     @Column
-    String time;
+    LocalTime time;
 
     @Column
     String description;
-
+/*
     @Column
     Double latitude;
 
     @Column
     Double longitude;
-
+*/
     @ManyToOne
-    Day day;
+    Dia dia;
 
-    @OneToMany(mappedBy = "event")
+    @OneToMany(mappedBy = "event", cascade = CascadeType.ALL)
     List<Photo> photos = new ArrayList<>();
 
     void addPhoto(Photo photo){

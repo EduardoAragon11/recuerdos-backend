@@ -1,4 +1,4 @@
-package com.example.demo.day.domain;
+package com.example.demo.dia.domain;
 
 import com.example.demo.event.domain.Event;
 import jakarta.persistence.*;
@@ -10,7 +10,7 @@ import java.util.List;
 
 @Data
 @Entity
-public class Day {
+public class Dia {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
@@ -18,10 +18,11 @@ public class Day {
     @Column
     LocalDate date;
 
-    @OneToMany(mappedBy = "day")
+    @OneToMany(mappedBy = "dia", cascade = CascadeType.ALL)
     List<Event> events = new ArrayList<>();
 
     void addEvent(Event event){
         events.add(event);
     }
+
 }

@@ -12,3 +12,5 @@ public class Util {
         return new ModelMapper();
     }
 }
+
+//https://medium.com/shoutloudz/spring-boot-upload-and-download-images-using-jpa-b1c9ef174dc0

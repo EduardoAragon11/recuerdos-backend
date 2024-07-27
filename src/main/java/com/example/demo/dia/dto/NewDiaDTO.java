@@ -1,11 +1,11 @@
-package com.example.demo.day.dto;
+package com.example.demo.dia.dto;
 
 import lombok.Data;
 
 import java.time.LocalDate;
 
 @Data
-public class NewDayDTO {
+public class NewDiaDTO {
     LocalDate date;
 
 }
