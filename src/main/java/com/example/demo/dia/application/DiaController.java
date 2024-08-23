@@ -3,12 +3,15 @@ package com.example.demo.dia.application;
 import com.example.demo.dia.domain.DiaService;
 import com.example.demo.dia.dto.DiaResponseDTO;
 import com.example.demo.dia.dto.NewDiaDTO;
+import com.example.demo.dia.dto.SimpleDiaResponseDTO;
 import com.example.demo.event.dto.NewEventDTO;
 import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/dia")
@@ -39,5 +42,8 @@ public class DiaController {
         return ResponseEntity.created(null).build();
     }
 
-
+    @GetMapping("/year-month")
+    public ResponseEntity<List<SimpleDiaResponseDTO>> getDayByYearAndMonth(@RequestParam("year") String year, @RequestParam("month") String month){
+        return ResponseEntity.ok(diaService.getDayByYearAndMonth(year,month));
+    }
 }

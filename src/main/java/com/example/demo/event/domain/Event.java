@@ -26,6 +26,9 @@ public class Event {
 
     @Column
     String description;
+
+    @Column
+    Integer size;
 /*
     @Column
     Double latitude;

@@ -2,6 +2,7 @@ package com.example.demo.photo.application;
 
 import com.example.demo.photo.domain.PhotoService;
 import com.example.demo.photo.dto.NewPhotoDTO;
+import com.example.demo.photo.dto.PhotoEditDTO;
 import com.example.demo.photo.dto.PhotoResponseDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -10,6 +11,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RequestMapping("/photo")
 @Controller
@@ -35,5 +38,11 @@ public class PhotoController {
         return ResponseEntity.status(HttpStatus.OK)
                 .contentType(MediaType.valueOf("image/png"))
                 .body(image);
+    }
+
+    @PatchMapping("/edit")
+    ResponseEntity<Void> editPhotos(@RequestBody List<PhotoEditDTO> photos){
+        photoService.editPhotos(photos);
+        return ResponseEntity.ok(null);
     }
 }

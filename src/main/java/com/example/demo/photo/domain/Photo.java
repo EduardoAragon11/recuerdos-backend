@@ -13,13 +13,21 @@ public class Photo {
     Long id;
 
     @Column
-    @Value("-1")
     Integer screenX;
 
     @Column
-    @Value("-1")
     Integer screenY;
 
+    @Column
+    @Value("false")
+    Boolean choosen;
+
+    @Column
+    Integer size;
+    /*
+    @Column
+    Double ratio;
+    */
     @ManyToOne
     Event event;
 

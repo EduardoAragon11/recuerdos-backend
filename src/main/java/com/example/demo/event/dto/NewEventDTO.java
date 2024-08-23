@@ -8,6 +8,5 @@ import java.time.LocalTime;
 public class NewEventDTO {
     String name;
     LocalTime time;
-    String description;
 
 }
