@@ -29,12 +29,12 @@ public class PhotoService {
         photoRepository.save(photo);
     }
 
-
+/*
     public byte[] getImage(Long id){
         Photo photo = photoRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("PhotoData no encontrada"));
         return ImageUtil.decompressImage(photo.getImageData());
     }
-
+*/
     public void choosePhoto(Long id){
         Photo photo = photoRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Photo no encontrada"));
         photo.setChoosen(true);

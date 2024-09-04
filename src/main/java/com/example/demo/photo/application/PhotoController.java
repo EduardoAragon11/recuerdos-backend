@@ -31,7 +31,7 @@ public class PhotoController {
         photoService.patchPhoto(id, newPhotoDTO);
         return ResponseEntity.ok(null);
     }
-
+/*
     @GetMapping("/{id}")
     ResponseEntity<?> getImage(@PathVariable Long id){
         byte[] image = photoService.getImage(id);
@@ -39,7 +39,7 @@ public class PhotoController {
                 .contentType(MediaType.valueOf("image/png"))
                 .body(image);
     }
-
+*/
     @PatchMapping("/edit")
     ResponseEntity<Void> editPhotos(@RequestBody List<PhotoEditDTO> photos){
         photoService.editPhotos(photos);

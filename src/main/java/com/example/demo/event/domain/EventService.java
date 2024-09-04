@@ -12,15 +12,20 @@ import com.example.demo.photo.dto.NewPhotoDTO;
 import com.example.demo.photo.dto.PhotoResponseDTO;
 import com.example.demo.photo.dto.PhotoResponseEditDTO;
 import com.example.demo.photo.infrastructure.PhotoRepository;
+import com.example.demo.utils.CloudinaryService;
 import com.example.demo.utils.ImageUtil;
+import com.example.demo.utils.Util;
 import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 
 @Service
@@ -35,6 +40,11 @@ public class EventService {
     private PhotoRepository photoRepository;
     @Autowired
     private PhotoService photoService;
+    @Autowired
+    private CloudinaryService cloudinaryService;
+
+    @Autowired
+    private Util util;
 
     public EventResponseDTO getEvent(Long id){
         Event event = eventRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("El evento no existe"));
@@ -74,10 +84,13 @@ public class EventService {
 
     public void uploadImage(Long idEvent, MultipartFile file) throws IOException {
         Photo photo = new Photo();
-        photo.setImageData(ImageUtil.compressImage(file.getBytes()));
         Event event = eventRepository.findById(idEvent).orElseThrow(()-> new ResourceNotFoundException("El evento no existe"));
         photo.setEvent(event);
         photo.setChoosen(false);
+
+        photo = photoRepository.save(photo);
+
+        photo.setUrl(cloudinaryService.uploadFile(file, util.folderPathName(event, photo.getId())));
         event.addPhoto(photo);
 
         photoRepository.save(photo);
@@ -89,14 +102,13 @@ public class EventService {
         Event event = eventRepository.findById(idEvent).orElseThrow(()-> new ResourceNotFoundException("El evento no existe"));
         files.forEach(file -> {
             Photo photo = new Photo();
-            try {
-                photo.setImageData(ImageUtil.compressImage(file.getBytes()));
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
             photo.setChoosen(false);
             photo.setSize(64);
             photo.setEvent(event);
+
+            photo = photoRepository.save(photo);
+
+            photo.setUrl(cloudinaryService.uploadFile(file, util.folderPathName(event, photo.getId())));
             event.addPhoto(photo);
             photoRepository.save(photo);
         });
@@ -121,7 +133,7 @@ public class EventService {
         eventRepository.save(event);
     }
 
-    @Transactional
+
     public List<PhotoResponseEditDTO> getPhotosById (Long idEvent){
         Event event = eventRepository.findById(idEvent).orElseThrow(()-> new ResourceNotFoundException("El evento no existe"));
         List<PhotoResponseEditDTO> photos = new ArrayList<PhotoResponseEditDTO>();
@@ -130,13 +142,15 @@ public class EventService {
             photoResponseEditDTO.setId(photo.getId());
             photoResponseEditDTO.setScreenX(photo.getScreenX());
             photoResponseEditDTO.setScreenY(photo.getScreenY());
-            photoResponseEditDTO.setImageData(ImageUtil.decompressImage(photo.getImageData()));
+            photoResponseEditDTO.setUrl(photo.getUrl());
             photoResponseEditDTO.setChoosen(photo.getChoosen());
             photoResponseEditDTO.setSize(photo.getSize());
             photos.add(photoResponseEditDTO);
         });
+        photos.sort(Comparator.comparingLong(PhotoResponseEditDTO::getId));
         return photos;
     }
+
 /*
     public void addPhotos(Long id, List<Photo> photos){
         Event event = eventRepository.findById(id).orElseThrow();
@@ -146,7 +160,6 @@ public class EventService {
     }
 */
 
-    @Transactional
     public List<PhotoResponseDTO> getChoosenPhotosById(Long idEvent){
         Event event = eventRepository.findById(idEvent).orElseThrow(()-> new ResourceNotFoundException("El evento no existe"));
         List<PhotoResponseDTO> photos = new ArrayList<PhotoResponseDTO>();
@@ -156,11 +169,12 @@ public class EventService {
                 photoResponseDTO.setId(photo.getId());
                 photoResponseDTO.setScreenX(photo.getScreenX());
                 photoResponseDTO.setScreenY(photo.getScreenY());
-                photoResponseDTO.setImageData(ImageUtil.decompressImage(photo.getImageData()));
+                photoResponseDTO.setUrl(photo.getUrl());
                 photoResponseDTO.setSize(photo.getSize());
                 photos.add(photoResponseDTO);
             }
         });
+        photos.sort(Comparator.comparingLong(PhotoResponseDTO::getId));
         return photos;
     }
 

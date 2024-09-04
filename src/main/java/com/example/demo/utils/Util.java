@@ -1,5 +1,6 @@
 package com.example.demo.utils;
 
+import com.example.demo.event.domain.Event;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -10,6 +11,11 @@ public class Util {
     @Bean
     ModelMapper modelMapper(){
         return new ModelMapper();
+    }
+
+    public String folderPathName(Event event, Long id){
+        return "dia_" + event.getDia().getDate() +
+                "/evento_" + event.getId();
     }
 }
 
