@@ -8,5 +8,5 @@ public class PhotoResponseDTO {
     Integer screenX;
     Integer screenY;
     Integer size;
-    byte[] imageData;
+    String url;
 }

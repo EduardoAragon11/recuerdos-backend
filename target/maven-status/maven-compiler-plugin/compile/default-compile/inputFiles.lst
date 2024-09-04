@@ -1,5 +1,6 @@
 /home/edfearay/Documents/projectos/to_angie/recuerdos-backend/src/main/java/com/example/demo/DemoApplication.java
 /home/edfearay/Documents/projectos/to_angie/recuerdos-backend/src/main/java/com/example/demo/GlobalExceptionHandler.java
+/home/edfearay/Documents/projectos/to_angie/recuerdos-backend/src/main/java/com/example/demo/configuration/CloudinaryConfig.java
 /home/edfearay/Documents/projectos/to_angie/recuerdos-backend/src/main/java/com/example/demo/configuration/SecurityConfig.java
 /home/edfearay/Documents/projectos/to_angie/recuerdos-backend/src/main/java/com/example/demo/dia/application/DiaController.java
 /home/edfearay/Documents/projectos/to_angie/recuerdos-backend/src/main/java/com/example/demo/dia/domain/Dia.java
@@ -26,5 +27,6 @@
 /home/edfearay/Documents/projectos/to_angie/recuerdos-backend/src/main/java/com/example/demo/photo/dto/PhotoResponseDTO.java
 /home/edfearay/Documents/projectos/to_angie/recuerdos-backend/src/main/java/com/example/demo/photo/dto/PhotoResponseEditDTO.java
 /home/edfearay/Documents/projectos/to_angie/recuerdos-backend/src/main/java/com/example/demo/photo/infrastructure/PhotoRepository.java
+/home/edfearay/Documents/projectos/to_angie/recuerdos-backend/src/main/java/com/example/demo/utils/CloudinaryService.java
 /home/edfearay/Documents/projectos/to_angie/recuerdos-backend/src/main/java/com/example/demo/utils/ImageUtil.java
 /home/edfearay/Documents/projectos/to_angie/recuerdos-backend/src/main/java/com/example/demo/utils/Util.java

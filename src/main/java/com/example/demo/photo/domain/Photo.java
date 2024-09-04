@@ -24,18 +24,11 @@ public class Photo {
 
     @Column
     Integer size;
-    /*
-    @Column
-    Double ratio;
-    */
+
     @ManyToOne
     Event event;
 
-    //@Column
-    //String name;
-
-    @Lob
     @Column
-    byte[] imageData;
-    //String path;
+    String url;
+
 }

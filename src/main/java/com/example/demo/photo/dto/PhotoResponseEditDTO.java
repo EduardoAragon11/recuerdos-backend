@@ -9,5 +9,5 @@ public class PhotoResponseEditDTO {
     Integer screenY;
     Boolean choosen;
     Integer size;
-    byte[] imageData;
+    String url;
 }
